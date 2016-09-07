@@ -1,0 +1,53 @@
+buildscript {
+	repositories {
+		//mavenCentral()
+	    //使用内部maven服务器
+		maven { url 'http://192.168.20.26:8081/nexus/content/groups/public/' }
+	}
+	
+	dependencies { 
+	   classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE'
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+
+mainClassName = 'org.bsdf.Application'
+
+sourceCompatibility = 1.8
+version = '1.0'
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'bsdf',
+                   'Implementation-Version': version
+    }
+}
+
+repositories {
+	//mavenCentral()
+    //使用内部maven服务器
+	maven { url 'http://192.168.20.26:8081/nexus/content/groups/public/' }
+}
+
+dependencies {
+
+	compile "org.springframework.boot:spring-boot-starter-actuator"
+    compile "org.springframework.boot:spring-boot-starter-web"
+    compile "org.springframework.boot:spring-boot-starter-thymeleaf"
+    compile "org.springframework.boot:spring-boot-starter-data-jpa"
+    compile("org.springframework.boot:spring-boot-devtools")
+    compile("org.springframework.boot:spring-boot-starter-activemq")
+    compile("org.apache.activemq:activemq-broker")
+    compile("com.fasterxml.jackson.core:jackson-databind")
+	compile 'com.h2database:h2:1.4.184'
+}
+
+// tag::jar[]
+jar {
+    baseName = 'bsdf'
+    version =  '0.0.1'
+}
+// end::jar[]
